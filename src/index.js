@@ -5,6 +5,8 @@ import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 
 import './styles.scss';
+import { displayStack } from 'hoek';
+import { dispatch } from 'rxjs/internal/observable/range';
 
 const initialState = {
   count: 0
@@ -29,11 +31,13 @@ const store = createStore(reducer);
 
 class Counter extends Component {
   render() {
+    const { count, increment } = this.props;
+
     return (
       <main className="Counter">
-        <p className="count">0</p>
+        <p className="count">{count}</p>
         <section className="controls">
-          <button>Increment</button>
+          <button onClick={increment}>Increment</button>
           <button>Decrement</button>
           <button>Reset</button>
         </section>
@@ -42,4 +46,23 @@ class Counter extends Component {
   }
 }
 
-render(<Counter />, document.getElementById('root'));
+const mapStateToProps = (state) => {
+  return state;
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    increment() {
+      dispatch(incrementValue())
+    }
+  }
+}
+
+const CounterContainer = connect(mapStateToProps, mapDispatchToProps)(Counter);
+
+render(
+  <Provider store={store}>
+    <CounterContainer />
+  </Provider>,
+  document.getElementById('root')
+);
