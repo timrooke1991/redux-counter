@@ -68,14 +68,6 @@ const mapDispatchToProps = {
   decrement
 }
 
-// Old syntax of mapDispatchToProps
-// (dispatch) => {
-  // return bindActionCreators({
-  //   increment,
-  //   decrement
-  // }, dispatch)
-// }
-
 const CounterContainer = connect(mapStateToProps, mapDispatchToProps)(Counter);
 
 render(
